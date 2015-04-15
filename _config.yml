@@ -1,6 +1,7 @@
 markdown: rdiscount
 permalink: /:year/:month/:title/
-url: http://geeklu.com
-author: 卢克
+url: http://sailorivy.github.io
+author: sailorivy
 pygments: true
-paginate: 24
+paginate: 20
+timezone: Asia/Shanghai
