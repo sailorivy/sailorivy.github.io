@@ -4,4 +4,4 @@ title: 留言
 comments: yes
 ---
 
-评论留言！
+评论请留言！

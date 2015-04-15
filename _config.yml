@@ -2,6 +2,7 @@ markdown: rdiscount
 permalink: /:year/:month/:title/
 url: http://sailorivy.github.io
 author: sailorivy
+title: 知之
 pygments: true
 paginate: 20
 timezone: Asia/Shanghai
