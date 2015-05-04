@@ -52,6 +52,7 @@ Git的环境变量可以在三个地方设置：
 
     $ git rm oom.log
 移动/重命名文件
+
 &nbsp;&nbsp;&nbsp;&nbsp;Git的元数据并不跟踪移动/重命名操作，但它能推断出是移动/重命名操作。
 
     $ git mv file_from file_to
@@ -69,9 +70,13 @@ Git的环境变量可以在三个地方设置：
 
     $ git log
 &nbsp;&nbsp;&nbsp;&nbsp;使用-p选项可以显示每次提交的内容差异。
+
 &nbsp;&nbsp;&nbsp;&nbsp;另外还有--pretty选项，可以指定不同于默认格式的方式展示提交历史。
+
 &nbsp;&nbsp;&nbsp;&nbsp;在--pretty选项指定为oneline或format的时候，结合--graph选项可以看到开头会多出一些ASCII字符串表示的简单图形，展示每个提交所在的分支及其分化衍合情况。
+
 &nbsp;&nbsp;&nbsp;&nbsp;还可以指定--since和--until设置时间范围，用--author选项指定作者（只显示该作者的提交）
+
 &nbsp;&nbsp;&nbsp;&nbsp;如果只关心某些文件或目录的历史提交，可以在git log选项的最后指定路径 （path）
 
 取消已经暂存的文件
@@ -109,6 +114,7 @@ Git的环境变量可以在三个地方设置：
 
  1. 如果在合并时或git pull时发生冲突，可以用git status查阅哪些文件出现了冲突。
  2. 接着手工定位并解决这些冲突（Git会在有冲突的文件里加入标准的冲突解决标记）。
+ 
  也可以运行git mergetool，调用一个可视化的合并工具来引导你解决所有冲突。
  3. 解决了所有文件里的所有冲突后，运行git add将把它们标记为已解决状态（暂存就表示冲突已经解决）。
  4. 再运行一次git status，确认所有冲突都已解决。
@@ -132,6 +138,7 @@ Git的环境变量可以在三个地方设置：
 &nbsp;&nbsp;&nbsp;&nbsp;对于尚未合并的分支，删除的时候（git branch -d patch-025）会提示错误，确定改动没用的话可以强制删除（git branch -D patch-025）。
 
 储藏
+
 &nbsp;&nbsp;&nbsp;&nbsp;当你正在进行某一部分工作，里面的东西比较杂乱，这时候需要转到其他分支上进行一些工作，但又不能提交进行了一半的工作。这种情况怎么办？
 
     $ git stash
@@ -150,6 +157,7 @@ Git的环境变量可以在三个地方设置：
 
     $ git stash apply --index
 从堆栈中移除储藏
+
 &nbsp;&nbsp;&nbsp;&nbsp;stash apply只尝试应用储藏的工作，储藏的内容仍然在栈上。
 
     $ git stash drop [stash-name]
