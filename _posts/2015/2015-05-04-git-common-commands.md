@@ -11,14 +11,14 @@ Git的环境变量可以在三个地方设置：
 
  - /etc/gitconfig文件：对所有用户适用，使用git config命令时指定‘–system’选项。
  - ～/.gitconfig文件：只适用于当前用户，使用git config命令时指定‘–global’选项。
- - 当前项目目录中的.git/config文件：仅对当前项目有效。
+ - 当前项目目录中的.git/config文件：仅对当前项目有效，不用指定任何选项。
 
 每个级别的配置都会覆盖上层的相同配置，.git/config里的配置会覆盖/etc/gitconfig中的同名变量。
 <h3>用户信息</h3>
 配置个人的用户名称和电子邮件。Git在每次提交时都会引用这两条信息，说明是谁提交了，这两条配置会随更新内容一起被纳入历史记录。
 
-    $ git config --global user.name "Ivy"
-    $ git config --global user.email ivy@gmail.com
+    $ git config [--global] user.name <user_name>
+    $ git config [--global] user.email <user_email>
 <h3>查看配置信息</h3>
 查看已有的配置信息
 
@@ -35,7 +35,7 @@ Git的环境变量可以在三个地方设置：
 <h3>本地操作</h3>
 克隆现有仓库
 
-    $ git clone [url]
+    $ git clone <url>
 查看当前文件的状态
 
     $ git status
@@ -50,22 +50,22 @@ Git的环境变量可以在三个地方设置：
     $ git diff --cached
 删除文件
 
-    $ git rm oom.log
+    $ git rm <file_path>
 移动/重命名文件
 
 &nbsp;&nbsp;&nbsp;&nbsp;Git的元数据并不跟踪移动/重命名操作，但它能推断出是移动/重命名操作。
 
-    $ git mv file_from file_to
+    $ git mv <file_from> <file_to>
     或者
-    $ mv file_from file_to
-    $ git rm file_from
-    $ git add file_to
+    $ mv <file_from> <file_to>
+    $ git rm <file_from>
+    $ git add <file_to>
 提交更新（已暂存的改动）
 
-    $ git commit -m 'commit log'
+    $ git commit -m '<commit_log>'
 提交已经跟踪过的文件的更新（跳过git add步骤，一步就暂存并提交）
 
-    $ git commit -a -m 'commit log'
+    $ git commit -a -m '<commit_log>'
 查看提交历史
 
     $ git log
@@ -77,39 +77,43 @@ Git的环境变量可以在三个地方设置：
 
 &nbsp;&nbsp;&nbsp;&nbsp;还可以指定--since和--until设置时间范围，用--author选项指定作者（只显示该作者的提交）
 
-&nbsp;&nbsp;&nbsp;&nbsp;如果只关心某些文件或目录的历史提交，可以在git log选项的最后指定路径 （path）
+&nbsp;&nbsp;&nbsp;&nbsp;如果只关心某些文件或目录的历史提交，可以在git log选项的最后指定路径（path）
 
+撤销commit
+
+    $ git reset --hard <commit_id>
 取消已经暂存的文件
 
-    $ git reset HEAD <file>...
+    $ git reset HEAD <file>
 取消对文件的修改
 
-    $ git checkout -- <file>...
+    $ git checkout -- <file>
 
 
 <h3>分支操作</h3>
 新建并切换分支
 
-    $ git branch patch-025
-    $ git checkout patch-025
+    $ git branch <branch_name>
+    $ git checkout <branch_name>
     或者
-    $ git checkout -b patch-025
+    $ git checkout -b <branch_name>
 &nbsp;&nbsp;&nbsp;&nbsp;在切换分支之前，需要保持一个清洁的工作区域（暂存区和工作目录），那些还没有提交的修改会和即将检出的分支产生冲突从而阻止Git为你切换分支。但现实工作中，工作区域不可能一直保持清洁，解决办法见后面的“冲突处理”。
 
-同步远程服务器上的数据到本地
+推送本地新建分支到远程仓库
 
-    $ git fetch [remote-name]
+    $ git push --set-upstream <remote_name> <branch_name>
+
 推送数据到远程仓库
 
-    $ git push [remote-name] [branch-name]
+    $ git push <remote_name> <branch_name>
     
 把本地分支推送到某个命名不同的远程分支
 
-    $ git push [remote-name] [branch-name]:[remote-branch-name] 
+    $ git push <remote_name> <branch_name>:<remote_branch_name>
 合并分支
 
-    $ git checkout master
-    $ git merge patch-025
+    $ git checkout <target_branch_name>
+    $ git merge <source_branch_name>
 冲突处理
 
  1. 如果在合并时或git pull时发生冲突，可以用git status查阅哪些文件出现了冲突。
@@ -121,7 +125,7 @@ Git的环境变量可以在三个地方设置：
 
 删除分支
 
-    $ git branch -d patch-025
+    $ git branch -d <branch_name>
 列出当前所有的分支，并显示当前所在的分支
 
     $ git branch
@@ -134,7 +138,7 @@ Git的环境变量可以在三个地方设置：
 查看尚未合并的分支
 
     $ git branch --no-merged
-&nbsp;&nbsp;&nbsp;&nbsp;对于尚未合并的分支，删除的时候（git branch -d patch-025）会提示错误，确定改动没用的话可以强制删除（git branch -D patch-025）。
+&nbsp;&nbsp;&nbsp;&nbsp;对于尚未合并的分支，删除的时候（git branch -d <branch_name>）会提示错误，确定改动没用的话可以强制删除（git branch -D <branch_name>）。
 
 储藏
 
@@ -149,8 +153,8 @@ Git的环境变量可以在三个地方设置：
 
 重新应用储藏
 
-    $ git stash apply [stash-name]
-    # 不指定stash-name的话，会重新应用最新的储藏
+    $ git stash apply <stash_name>
+    # 不指定stash_name的话，会重新应用最新的储藏
     # 这个命令只能重新应用文件的变更，没有重新暂存已被暂存的文件
 重新应用被暂存的变更
 
@@ -159,7 +163,7 @@ Git的环境变量可以在三个地方设置：
 
 &nbsp;&nbsp;&nbsp;&nbsp;stash apply只尝试应用储藏的工作，储藏的内容仍然在栈上。
 
-    $ git stash drop [stash-name]
+    $ git stash drop <stash_name>
 重新应用储藏并从堆栈中移除储藏
 
     $ git stash pop
