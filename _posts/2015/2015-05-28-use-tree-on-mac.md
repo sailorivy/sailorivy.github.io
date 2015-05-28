@@ -2,7 +2,7 @@
 title: 在Mac上使用tree命令
 layout: post
 categories: 工具
-tags: Mac, tree
+tags: Mac tree
 comments: yes
 ---
 
