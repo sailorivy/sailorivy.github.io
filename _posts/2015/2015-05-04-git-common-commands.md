@@ -89,6 +89,26 @@ Git的环境变量可以在三个地方设置：
 
     $ git checkout -- <file>
 
+打标签
+
+    // 给HEAD加标签
+    $ git tag -a <tag_name> -m '<message>'
+    // 后期对早先的某次提交加标签
+    $ git tag -a <tag_name> <commit_checksum>
+    
+查看标签
+
+    // 列出已有的tag
+    $ git tag
+    // 显示指定tag的版本信息和提交对象
+    $ git show <tag_name>
+    
+分享标签
+
+    $ git push origin <tag_name>
+    // 一次推送所有本地新增的标签
+    $ git push origin --tags
+
 
 <h3>分支操作</h3>
 新建并切换分支
