@@ -36,7 +36,11 @@ WebLogic提供了一个高级功能——SSL主机名验证，WebLogic上运行�
 <h3>通配符主机名验证器</h3>
 有些第三方服务提供的证书并不会精确指定主机名，提供服务比较多的时候，通常会用通配符，比如*.xxxx.cn。
 
-将第三方服务提供的证书导入WebLogic的信任秘钥库之后，如果仍然使用WebLogic缺省的主机名验证器就会失败。
+将第三方服务提供的证书导入WebLogic的信任秘钥库之后，如果仍然使用WebLogic缺省的主机名验证器就会失败：
+
+    <2015-9-18 下午02时02分48秒 CST> <Warning> <Security> <BEA-090504> <Certificate chain received from api.xxxx.cn - 60.12.226.18 failed hostname verification check. Certificate contained `*.xxxx.cn` but check expected `api.xxxx.cn`>
+    <2015-9-18 下午02时02分48秒 CST> <Error> <HTTP> <BEA-101019> <[ServletContext@1257418214[app:apitest module:apitest.war path:null spec-version:3.0]] Servlet failed with an IOException.
+        javax.net.ssl.SSLKeyException: Hostname verification failed: HostnameVerifier=weblogic.security.utils.SSLWLSHostnameVerifier, hostname=api.xxxx.cn.
 
 除了缺省的主机名验证器，WebLogic还提供了一个通配符主机名验证器，它支持满足下面要求的主机名：
 
@@ -45,9 +49,7 @@ WebLogic提供了一个高级功能——SSL主机名验证，WebLogic上运行�
 
 支持通配符的主机名验证器是weblogic.security.utils.SSLWLSWildcardHostnameVerifier。如果使用缺省主机名验证器时报如下的错误，那就可以将管理控制台的“配置-SSL-高级-主机名验证”改成“定制主机名验证器”，同时将“定制主机名验证器”设置为weblogic.security.utils.SSLWLSWildcardHostnameVerifier
 
-    <2015-9-18 下午02时02分48秒 CST> <Warning> <Security> <BEA-090504> <Certificate chain received from api.xxxx.cn - 60.12.226.18 failed hostname verification check. Certificate contained `*.xxxx.cn` but check expected `api.xxxx.cn`>
-    <2015-9-18 下午02时02分48秒 CST> <Error> <HTTP> <BEA-101019> <[ServletContext@1257418214[app:apitest module:apitest.war path:null spec-version:3.0]] Servlet failed with an IOException.
-        javax.net.ssl.SSLKeyException: Hostname verification failed: HostnameVerifier=weblogic.security.utils.SSLWLSHostnameVerifier, hostname=api.xxxx.cn.
+将主机名验证器换成SSLWLSWildcardHostnameVerifier之后，前面的错误就没有了。
 
 <h3>定制主机名验证器</h3>
 如果缺省的和通配符的主机名验证器都不能满足使用要求，可以自定义主机名验证器。WebLogic提供了weblogic.security.SSL.HostnameVerifier接口，建立SSL连接的时候会回调HostnameVerifier接口的实现来验证主机名，进而确定是否允许建立连接。
