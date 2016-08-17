@@ -29,18 +29,10 @@ comments: yes
 
 参考：[Wikipedia](https://zh.wikipedia.org/wiki/%E4%B8%AD%E8%8F%AF%E6%B0%91%E5%9C%8B%E5%9C%8B%E6%B0%91%E8%BA%AB%E5%88%86%E8%AD%89#.E7.B7.A8.E8.99.9F.E8.A6.8F.E5.89.87)
 
-1. 导入
-
-    keytool -importcert -noprompt -keystore "Java标准信任密钥库的位置" -storepass changeit -alias alias -file 第三方服务证书的存放位置
-	
-2. 导入后查看、确认
-
-    keytool -list -keystore "Java标准信任密钥库的位置" -storepass changeit
-    
     
 <h2>Groovy片段示例</h2>
 
-```groovy
+
     def matchHK = {
         def matcher = it =~ /^[A-Z]{1,2}[0-9]{6}\([0-9A]\)/
     }
@@ -55,7 +47,7 @@ comments: yes
     if (!id) return false
     if (id?.trim()?.isEmpty()) return false
     return matchHK(id.toUpperCase()).matches() || matchMO(id.toUpperCase()).matches() || matchTW(id.toUpperCase()).matches()
-```
+
 
 
 
